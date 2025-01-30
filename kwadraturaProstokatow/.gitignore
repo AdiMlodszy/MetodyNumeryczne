@@ -1,4 +1,40 @@
-bin/,
-obj/,
-.wynik.md
-```
+# ==========================================
+# Standardowe katalogi build .NET
+# ==========================================
+bin/
+obj/
+
+# ==========================================
+# Pliki tymczasowe i konfiguracyjne
+# ==========================================
+*.user
+*.suo
+*.userprefs
+*.csproj.user
+*.pdb
+*.log
+*.cache
+*.ilk
+*.aps
+*.ncb
+*.sdf
+*.opensdf
+*.vcxproj.user
+
+# ==========================================
+# Systemowe / narzędziowe
+# ==========================================
+*.DS_Store
+Thumbs.db
+
+# ==========================================
+# Resharper / Rider
+# ==========================================
+.ReSharper*/
+*.DotSettings.user
+
+# ==========================================
+# Pliki własne, których nie chcesz w repo
+# ==========================================
+wynik.md
+
