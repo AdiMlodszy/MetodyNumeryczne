@@ -84,10 +84,10 @@ namespace CompositeRectangleIntegration
                 a: a,
                 b: b,
                 n: n,
-                numericResult: I_R,        // jako "najlepszy" wynik
-                knownValue: null,         // nie mamy wartości analitycznej (automatyczne szacowanie)
-                absError: estimatedError, // wstawiamy do rubryki "absError"
-                relError: null            // relError pomijamy, jeśli nie chcemy go liczyć
+                i_n: I_n,
+                i_2n: I_2n,
+                iR: I_R,
+                error: estimatedError
             );
 
             Console.WriteLine("\nWyniki zapisano do pliku 'wynik.md'.");

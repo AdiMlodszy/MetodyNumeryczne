@@ -84,41 +84,52 @@ namespace CompositeRectangleIntegration.Analyzing
         /// <param name="relError">
         /// Ewentualny błąd względny (z ekstrapolacji lub w porównaniu z <paramref name="knownValue"/>).
         /// </param>
-        public static void SaveResults(
+         public static void SaveResults(
             string fileName,
             string expression,
             double a,
             double b,
             int n,
-            double numericResult,
-            double? knownValue,
-            double? absError,
-            double? relError)
+            double i_n,
+            double i_2n,
+            double iR,
+            double error
+        )
         {
-            // Używamy 'using var sw = new StreamWriter(...)' do automatycznego zamknięcia pliku po użyciu.
             using var sw = new StreamWriter(fileName);
 
-            // Podstawowy nagłówek i opis
-            sw.WriteLine("# Wyniki obliczeń metodą złożonych prostokątów (środkowych)");
+            // Nagłówek pliku
+            sw.WriteLine("# Wyniki obliczeń – metoda złożonych prostokątów (środkowych)");
             sw.WriteLine();
-            sw.WriteLine($"**Wyrażenie:** `{expression}`");
-            sw.WriteLine($"**Przedział:** [{a}, {b}]");
+
+            // 1. Dane wejściowe
+            sw.WriteLine("## 1. Dane wejściowe");
+            sw.WriteLine($"**Wyrażenie f(x):** `{expression}`");
+            sw.WriteLine($"**Przedział całkowania [a,b]:** [{a}, {b}]");
             sw.WriteLine($"**Liczba podprzedziałów (n):** {n}");
             sw.WriteLine();
 
-            // Wynik numeryczny
-            sw.WriteLine($"## Wynik numeryczny (ulepszony)");
-            sw.WriteLine($"`I_num = {numericResult}`");
+            // 2. Obliczenia krok po kroku
+            sw.WriteLine("## 2. Obliczenia krok po kroku");
+            sw.WriteLine($"- Podstawowe przybliżenie (n = {n}): `I_n = {i_n}`");
+            sw.WriteLine($"- Bardziej zagęszczone (2n = {2*n}): `I_2n = {i_2n}`");
+            sw.WriteLine();
 
-            // Jeśli mamy oszacowany błąd (np. z ekstrapolacji Richardson)
-            if (absError.HasValue)
-            {
-                sw.WriteLine();
-                sw.WriteLine($"## Szacowany błąd (Richardson) = `{absError.Value}`");
-            }
+            // 3. Ekstrapolacja Richardson
+            sw.WriteLine("## 3. Ekstrapolacja Richardson");
+            sw.WriteLine("Zgodnie z formułą:");
+            sw.WriteLine("```\nI_R = (4 * I_2n - I_n) / 3\nerror = |I_2n - I_n| / 3\n```");
+            sw.WriteLine();
+            sw.WriteLine($"- **Ulepszone I_R** = `{iR}`");
+            sw.WriteLine($"- **Szacowany błąd** = `{error}`");
+            sw.WriteLine();
 
-            // Można tu dopisać, jeśli 'knownValue' != null, obliczony błąd względem wartości analitycznej
-            // (już w samym programie, np. Analyzer.AnalyzeError(...)).
+            // 4. Interpretacja wyników
+            sw.WriteLine("## 4. Interpretacja wyników");
+            sw.WriteLine("- `I_n`: wynikiem całkowania z n podprzedziałami.");
+            sw.WriteLine("- `I_2n`: wynik z 2n podprzedziałami (podwojona dokładność).");
+            sw.WriteLine("- `I_R`: jeszcze lepsze przybliżenie obliczone dzięki ekstrapolacji Richardson.");
+            sw.WriteLine("- `error`: szacowany błąd numeryczny (pokazuje, o ile się możemy mylić).");
 
             sw.WriteLine();
             sw.WriteLine("---");
