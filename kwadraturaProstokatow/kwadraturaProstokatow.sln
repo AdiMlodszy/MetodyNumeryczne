@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kwadraturaProstokatow", "kwadraturaProstokatow.csproj", "{9DBEB22D-294E-D128-58D3-513046A37953}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DBEB22D-294E-D128-58D3-513046A37953}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DBEB22D-294E-D128-58D3-513046A37953}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DBEB22D-294E-D128-58D3-513046A37953}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DBEB22D-294E-D128-58D3-513046A37953}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F8A228BA-4EEB-4F5F-83EC-FD6E2868B207}
+	EndGlobalSection
+EndGlobal
