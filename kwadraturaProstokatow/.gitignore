@@ -1,4 +1,4 @@
-wynik.md,
-./wynik.md,
-./bin,
-./obj,
+bin,
+obj,
+.wynik.md
+```
