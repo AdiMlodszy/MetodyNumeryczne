@@ -44,47 +44,27 @@ namespace CompositeRectangleIntegration.Analyzing
         }
 
         /// <summary>
-        /// Metoda <c>SaveResults</c> zapisuje główne wyniki obliczeń do pliku 
+        /// Metoda <c>SaveResults</c> zapisuje szczegółowe wyniki obliczeń do pliku 
         /// w formacie Markdown (z rozszerzeniem .md).
         /// 
-        /// W pliku zapisujemy:
-        /// 1. Wyrażenie, które całkujemy,
-        /// 2. Przedział całkowania [a, b] i liczbę podprzedziałów (n),
-        /// 3. Wynik numeryczny <paramref name="numericResult"/> (np. I_R),
-        /// 4. Ewentualny szacowany błąd <paramref name="absError"/> – jeśli nie jest null,
-        /// 5. Datę i godzinę wygenerowania pliku.
-        /// 
-        /// Parametry:
-        /// - <paramref name="fileName"/> to nazwa pliku wyjściowego (np. "wynik.md").
-        /// - <paramref name="expression"/> to ciąg znaków opisujący funkcję f(x).
-        /// - <paramref name="a"/>, <paramref name="b"/>: granice całkowania.
-        /// - <paramref name="n"/>: liczba podprzedziałów (pomocnicza informacja).
-        /// - <paramref name="numericResult"/>: obliczona wartość całki (np. z ekstrapolacji Richardson).
-        /// - <paramref name="knownValue"/>: wartość analityczna, o ile istnieje (tutaj może być null).
-        /// - <paramref name="absError"/>, <paramref name="relError"/>: obliczony błąd bezwzględny 
-        ///   i względny (mogą być null, jeśli nie dotyczy).
-        /// 
-        /// Plik wynikowy pozwala na szybki wgląd w to, co policzyliśmy i jak duży błąd oszacowaliśmy.
+        /// W pliku zapisujemy m.in.:
+        /// - Wyrażenie, które całkujemy,
+        /// - Przedział całkowania [a, b] i liczbę podprzedziałów (n),
+        /// - Wyniki pośrednie I_n, I_2n,
+        /// - Ulepszone przybliżenie I_R (ekstrapolacja Richardson),
+        /// - Szacowany błąd (|I_2n - I_n| / 3),
+        /// - Datę i godzinę wygenerowania pliku.
         /// </summary>
-        /// <param name="fileName">Nazwa pliku wyjściowego, np. "wynik.md".</param>
-        /// <param name="expression">Tekst opisujący wyrażenie f(x) całkowane w programie.</param>
+        /// <param name="fileName">Nazwa pliku wyjściowego (np. "wynik.md").</param>
+        /// <param name="expression">Tekst wyrażenia (np. "sqrt(x)+log(x)").</param>
         /// <param name="a">Początek przedziału całkowania.</param>
         /// <param name="b">Koniec przedziału całkowania.</param>
         /// <param name="n">Liczba podprzedziałów (n).</param>
-        /// <param name="numericResult">
-        /// Ostateczny wynik numeryczny całkowania, np. wartość z ekstrapolacji Richardsona.
-        /// </param>
-        /// <param name="knownValue">
-        /// Opcjonalna wartość analityczna (jeśli użytkownik/kod ją zna).
-        /// Można wykorzystać do porównania z <paramref name="numericResult"/>.
-        /// </param>
-        /// <param name="absError">
-        /// Ewentualny błąd bezwzględny (z ekstrapolacji lub w porównaniu z <paramref name="knownValue"/>).
-        /// </param>
-        /// <param name="relError">
-        /// Ewentualny błąd względny (z ekstrapolacji lub w porównaniu z <paramref name="knownValue"/>).
-        /// </param>
-         public static void SaveResults(
+        /// <param name="i_n">Wynik całki z n podprzedziałami.</param>
+        /// <param name="i_2n">Wynik całki z 2n podprzedziałami.</param>
+        /// <param name="iR">Ulepszone przybliżenie (Richardson): (4*I_2n - I_n)/3.</param>
+        /// <param name="error">Szacowany błąd, czyli |I_2n - I_n| / 3.</param>
+        public static void SaveResults(
             string fileName,
             string expression,
             double a,
@@ -126,10 +106,10 @@ namespace CompositeRectangleIntegration.Analyzing
 
             // 4. Interpretacja wyników
             sw.WriteLine("## 4. Interpretacja wyników");
-            sw.WriteLine("- `I_n`: wynikiem całkowania z n podprzedziałami.");
-            sw.WriteLine("- `I_2n`: wynik z 2n podprzedziałami (podwojona dokładność).");
+            sw.WriteLine("- `I_n`: wynik całkowania z n podprzedziałami.");
+            sw.WriteLine("- `I_2n`: wynik całkowania z 2n podprzedziałami (podwojona liczba podprzedziałów).");
             sw.WriteLine("- `I_R`: jeszcze lepsze przybliżenie obliczone dzięki ekstrapolacji Richardson.");
-            sw.WriteLine("- `error`: szacowany błąd numeryczny (pokazuje, o ile się możemy mylić).");
+            sw.WriteLine("- `error`: szacowany błąd numeryczny (pokazuje, o ile możemy się mylić).");
 
             sw.WriteLine();
             sw.WriteLine("---");
